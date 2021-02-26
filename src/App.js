@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Database from "./db";
 function App() {
   return (
     <div className="container">
@@ -18,9 +19,9 @@ function App() {
         >
           Search
         </button>
+        <Database />
       </div>
     </div>
   );
 }
-
 export default App;
