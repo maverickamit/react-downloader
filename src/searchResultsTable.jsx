@@ -1,17 +1,35 @@
 import { DataGrid, RowsProp, ColDef } from "@material-ui/data-grid";
 import Dexie from "dexie";
+import { observer } from "mobx-react-lite";
 
-function SearchResultsTable() {
-  const rows = [
-    {
-      id: 1,
-      leechers: "0",
-      name: "xyz",
-      scraped_date: "1590740560",
-      seeders: "10",
-      size_bytes: "1181647367",
-    },
-  ];
+const SearchResultsTable = observer(({ appStore }) => {
+  var db = new Dexie("reactdb")
+    .open()
+    .then(function (db) {
+      db.table("files")
+        .toArray()
+        .then((data) => {
+          console.log("Database found");
+          let sortedData = [];
+          data.map((item, index) => {
+            item.item.id = index;
+            sortedData[index] = item.item;
+          });
+          if (
+            JSON.stringify(sortedData) !==
+            JSON.stringify(appStore.searchResults)
+          ) {
+            appStore.setSearchResults(sortedData);
+          }
+        });
+    })
+    .catch("NoSuchDatabaseError", function (e) {
+      // Database with that name did not exist
+      console.error("Database not found");
+    })
+    .catch(function (e) {
+      console.error("Oh uh: " + e);
+    });
 
   const columns = [
     {
@@ -40,8 +58,9 @@ function SearchResultsTable() {
       flex: 1,
     },
   ];
-
-  return <DataGrid rows={rows} columns={columns} autoHeight co />;
-}
+  return (
+    <DataGrid rows={appStore.searchResults} columns={columns} autoHeight />
+  );
+});
 
 export default SearchResultsTable;

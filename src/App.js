@@ -2,8 +2,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import Database from "./db";
 import SearchResultsTable from "./searchResultsTable";
+import { observer } from "mobx-react-lite";
 
-function App() {
+const App = observer(({ appStore }) => {
   return (
     <div className="container">
       <div className="input-group mb-3 row m-3">
@@ -22,11 +23,11 @@ function App() {
           Search
         </button>
         <div className="containers">
-          <SearchResultsTable />
+          <SearchResultsTable appStore={appStore} />
         </div>
         <Database />
       </div>
     </div>
   );
-}
+});
 export default App;

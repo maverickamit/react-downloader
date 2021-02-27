@@ -1,7 +1,11 @@
-import { observable, action, decorate } from "mobx";
+import { makeAutoObservable } from "mobx";
 
-class UserStore {}
-
-UserStore = decorate(UserStore, {});
-
-export { UserStore };
+export class UserStore {
+  searchResults = [];
+  constructor() {
+    makeAutoObservable(this);
+  }
+  setSearchResults(searchResults) {
+    this.searchResults = searchResults;
+  }
+}
