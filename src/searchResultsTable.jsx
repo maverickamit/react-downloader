@@ -3,34 +3,6 @@ import Dexie from "dexie";
 import { observer } from "mobx-react-lite";
 
 const SearchResultsTable = observer(({ appStore }) => {
-  var db = new Dexie("reactdb")
-    .open()
-    .then(function (db) {
-      db.table("files")
-        .toArray()
-        .then((data) => {
-          console.log("Database found");
-          let sortedData = [];
-          data.map((item, index) => {
-            item.item.id = index;
-            sortedData[index] = item.item;
-          });
-          if (
-            JSON.stringify(sortedData) !==
-            JSON.stringify(appStore.searchResults)
-          ) {
-            appStore.setSearchResults(sortedData);
-          }
-        });
-    })
-    .catch("NoSuchDatabaseError", function (e) {
-      // Database with that name did not exist
-      console.error("Database not found");
-    })
-    .catch(function (e) {
-      console.error("Oh uh: " + e);
-    });
-
   const columns = [
     {
       headerName: "Name",

@@ -25,7 +25,7 @@ const App = observer(({ appStore }) => {
         <div className="containers">
           <SearchResultsTable appStore={appStore} />
         </div>
-        <Database />
+        <Database appStore={appStore} />
       </div>
     </div>
   );

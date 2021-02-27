@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
 import Dexie from "dexie";
 import Papa from "papaparse";
+import { observer } from "mobx-react-lite";
 
-export default function Database() {
+const Database = observer(({ appStore }) => {
   var db = new Dexie("reactdb");
   db.version(1).stores({
     files: "++id,name",
   });
+
   //Update dbversion to wipe and rewrite the database
   let dbversion = "version 1";
+
+  //Parsing csv file
   Papa.parse("test.csv", {
     header: true,
     download: true,
@@ -40,5 +43,40 @@ export default function Database() {
     },
   });
 
+  //Algorith to search database
+  db.files.orderBy("name").keys(function (keysArray) {
+    let searchTerm = "f";
+    let filteredKeys = [];
+    let filteredResults = [];
+    let index = 0;
+
+    //Filtering all keys to check for keys containing search term
+    keysArray.map((item) => {
+      let teststr = new RegExp(`${searchTerm}`, "gim");
+      if (teststr.test(item)) {
+        filteredKeys.push({ name: item });
+      }
+    });
+
+    //Function to get all files associated with the filtered keys
+    async function getFilteredResults(filteredKeys) {
+      const promises = filteredKeys.map(async (key) => {
+        await db.files.get(key).then((data) => {
+          data.item.id = index++;
+          filteredResults.push(data.item);
+        });
+      });
+      await Promise.all(promises);
+      if (
+        JSON.stringify(filteredResults) !==
+        JSON.stringify(appStore.searchResults)
+      ) {
+        appStore.setSearchResults(filteredResults);
+      }
+    }
+    getFilteredResults(filteredKeys);
+  });
   return null;
-}
+});
+
+export default Database;
