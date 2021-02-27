@@ -1,6 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Database from "./db";
+import SearchResultsTable from "./searchResultsTable";
+
 function App() {
   return (
     <div className="container">
@@ -19,6 +21,9 @@ function App() {
         >
           Search
         </button>
+        <div className="containers">
+          <SearchResultsTable />
+        </div>
         <Database />
       </div>
     </div>
