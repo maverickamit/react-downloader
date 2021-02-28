@@ -7,7 +7,7 @@ const SearchResultsTable = observer(({ appStore }) => {
     {
       headerName: "Name",
       field: "name",
-      flex: 1,
+      flex: 3,
     },
     {
       headerName: "Size",

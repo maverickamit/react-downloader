@@ -45,7 +45,7 @@ const Database = observer(({ appStore }) => {
 
   //Algorith to search database
   db.files.orderBy("name").keys(function (keysArray) {
-    let searchTerm = "f";
+    let searchTerm = appStore.value;
     let filteredKeys = [];
     let filteredResults = [];
     let index = 0;
@@ -76,7 +76,10 @@ const Database = observer(({ appStore }) => {
     }
     getFilteredResults(filteredKeys);
   });
-  return null;
+  var styles = {
+    display: "none",
+  };
+  return <p style={styles}>{appStore.value}</p>;
 });
 
 export default Database;

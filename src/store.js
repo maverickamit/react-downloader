@@ -2,14 +2,14 @@ import { makeAutoObservable } from "mobx";
 
 export class UserStore {
   searchResults = [];
-  searchString = "";
+  value = "";
   constructor() {
     makeAutoObservable(this);
   }
   setSearchResults(searchResults) {
     this.searchResults = searchResults;
   }
-  setSearchString(searchString) {
-    this.setSearchString = searchString;
+  setValue(value) {
+    this.value = value;
   }
 }
