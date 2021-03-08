@@ -1,0 +1,16 @@
+.icon {
+  display: inline-flex;
+  top: 0.125em;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  vertical-align: baseline;
+  align-self: center;
+  margin-left: 100%;
+}
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
