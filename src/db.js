@@ -55,7 +55,7 @@ const Database = observer(({ appStore }) => {
       let teststr = new RegExp(`${searchTerm}`, "gim");
       if (
         teststr.test(
-          item.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+          item.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, "")
         )
       ) {
         filteredKeys.push({ name: item });
