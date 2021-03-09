@@ -45,7 +45,7 @@ const Database = observer(({ appStore }) => {
 
   //Algorith to search database
   db.files.orderBy("name").keys(function (keysArray) {
-    let searchTerm = appStore.value;
+    let searchTerm = appStore.value.replace(/\s/g, "");
     let filteredKeys = [];
     let filteredResults = [];
     let index = 0;
@@ -53,7 +53,11 @@ const Database = observer(({ appStore }) => {
     //Filtering all keys to check for keys containing search term
     keysArray.map((item) => {
       let teststr = new RegExp(`${searchTerm}`, "gim");
-      if (teststr.test(item)) {
+      if (
+        teststr.test(
+          item.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+        )
+      ) {
         filteredKeys.push({ name: item });
       }
     });
