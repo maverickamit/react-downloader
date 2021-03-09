@@ -50,36 +50,46 @@ const SearchResultsTable = observer(({ appStore }) => {
       headerName: "Name",
       field: "name",
       flex: 3,
+      sortable: false,
     },
     {
       headerName: "Size",
       field: "size_bytes",
       flex: 1,
       valueFormatter: formatBytes,
+      sortable: false,
     },
     {
       headerName: "Seeds",
       field: "seeders",
       flex: 1,
+      sortable: false,
     },
     {
       headerName: "Leeches",
       field: "leechers",
       flex: 1,
+      sortable: false,
     },
     {
       headerName: "Scraped",
       field: "scraped_date",
       flex: 1,
       valueFormatter: formatDate,
+      sortable: false,
     },
     {
       headerName: "Download",
-      field: "infohash",
+      field: "id",
       flex: 1,
       renderCell: formatInfoHash,
+      sortable: false,
     },
   ];
+  if (appStore.database.length === 0) {
+    return <h2>Loading... Please wait approx 30 sec. Don't Refresh. </h2>;
+  }
+
   return (
     <DataGrid rows={appStore.searchResults} columns={columns} autoHeight />
   );

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export class UserStore {
+  database = [];
   searchResults = [];
   value = "";
   constructor() {
@@ -11,5 +12,8 @@ export class UserStore {
   }
   setValue(value) {
     this.value = value;
+  }
+  setDatabase(database) {
+    this.database = database;
   }
 }
