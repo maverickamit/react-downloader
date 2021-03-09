@@ -10,6 +10,7 @@ const Database = observer(({ appStore }) => {
     Papa.parse("http://localhost:3000/test.csv", {
       header: true,
       download: true,
+      worker: true,
       complete: function (results, file) {
         try {
           console.log("parsing complete");
@@ -28,7 +29,7 @@ const Database = observer(({ appStore }) => {
 
   //Filtering all keys to check for keys containing search term
   useEffect(() => {
-    if (appStore.value !== "") {
+    if (appStore.value.length >= 3) {
       let searchTerm = appStore.value.replace(/\s/g, "");
       try {
         appStore.database.map((item) => {

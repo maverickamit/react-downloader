@@ -63,7 +63,7 @@ const SearchResultsTable = observer(({ appStore }) => {
       headerName: "Seeds",
       field: "seeders",
       flex: 1,
-      sortable: false,
+      sortable: true,
     },
     {
       headerName: "Leeches",
@@ -87,7 +87,7 @@ const SearchResultsTable = observer(({ appStore }) => {
     },
   ];
   if (appStore.database.length === 0) {
-    return <h2>Loading... Please wait approx 30 sec. Don't Refresh. </h2>;
+    return <h2>Loading... Please wait approx 20 sec. Don't Refresh. </h2>;
   }
 
   return (
